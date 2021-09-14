@@ -42,3 +42,33 @@ All tests are built into Postman! Just click run on the "Admin Actions" and "Ima
 
 ![Testing Demo](https://github.com/CalderWhite/shopify-challenge-winter-2022/raw/master/demo_videos/test_demo.gif)
 
+## Potential Features + Improvements
+
+Api Features:
+   - Support query params in addition to HTTP headers
+   - Create a routing object for /api/v1
+   - Implement json responses for flask's 404 and 500 page
+   - Delete all a user's images when their account is deleted.
+   - Tell users what images have been created/deleted
+     (deletions are ignored if image does not exist and creations are
+      ignored if the image already exists)
+
+Storage Features:
+  - Sharding across multiple machines. Wouldn't be too hard if it was
+    based on the image hash <mod> the number of machines (could pose
+    issues if too many hashes land on one server, hopefully they
+    are random enough that this doesn't happen.)
+
+  - Using memcached or redis to cache images in memory to reduce load
+    on the disk. (There's always memory just sitting around, and the
+    main server isn't using much, so might as well use it to speed up
+    performance)
+    
+    OR
+    
+  - Increase the postgres `shared_buffers` setting to keep the DB in memory more.
+
+Authentication:
+   - Create sessions so that tokens aren't indefinite. Improves security so one rouge token can't take over your whole account.
+   - Potentially use keycloak to manage users
+   - Reduce the "flask" postgres user's permissions so they can only mutate the USERS table, and not have the CREATEDB role.
