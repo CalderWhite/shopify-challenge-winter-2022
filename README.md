@@ -4,7 +4,7 @@ An image repository with authentication and file permissions!
 
 ## Building + Running
 
-To build, run
+To build,
 
 ```
 docker-compose build
