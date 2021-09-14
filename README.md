@@ -18,12 +18,12 @@ docker-compose up
 
 ## Usage
 
-
 Example queries are all in Postman! If you want to create/delete users, add images, etc. Each query has
 specific example parameters and tests with it! An admin can create users with its own REST calls and then
 supply the access token to the user. All authentication is done via the token header, as shown in postman.
 
 To use postman, import all the files in `/postman` to get the necessary collections and global environment variables.
+![Postman Import Demo](https://github.com/CalderWhite/shopify-challenge-winter-2022/raw/master/demo_videos/postman_import_demo.gif)
 
 Some of the features include...    
 
