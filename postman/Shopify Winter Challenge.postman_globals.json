@@ -1,0 +1,19 @@
+{
+	"id": "53956c9c-a4c1-43c2-8540-d64581b0c388",
+	"values": [
+		{
+			"key": "API_HOST",
+			"value": "127.0.0.1:5000",
+			"enabled": true
+		},
+		{
+			"key": "API_URL",
+			"value": "http://127.0.0.1:5000/api/v1",
+			"enabled": true
+		}
+	],
+	"name": "Shopify Winter Challenge Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2021-09-14T04:38:50.810Z",
+	"_postman_exported_using": "Postman/8.11.1"
+}
