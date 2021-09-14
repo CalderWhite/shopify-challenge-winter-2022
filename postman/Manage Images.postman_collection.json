@@ -1,0 +1,600 @@
+{
+	"info": {
+		"_postman_id": "f942f35e-1fa5-4cf0-a74e-9e8643c861c8",
+		"name": "Manage Images",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Valid Requests",
+			"item": [
+				{
+					"name": "CREATE image",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var schema = {",
+									"  \"message\": {",
+									"    \"type\": \"string\"",
+									"  }",
+									"};",
+									"",
+									"pm.test(\"Body matches schema\", function () {",
+									"    pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"Body says \\\"images have been created\\\"\", function () {",
+									"    pm.expect(pm.response.json().message).to.include(\"Images have been created\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nyan_cat",
+									"type": "file",
+									"src": "/home/calder/repos/shopify-challenge/nyan_cat.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}/users/calder/images",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"users",
+								"calder",
+								"images"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE images (batch)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var schema = {",
+									"  \"message\": {",
+									"    \"type\": \"string\"",
+									"  }",
+									"};",
+									"",
+									"pm.test(\"Body matches schema\", function () {",
+									"    pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"Body says \\\"images have been created\\\"\", function () {",
+									"    pm.expect(pm.response.json().message).to.include(\"Images have been created\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "doge",
+									"type": "file",
+									"src": "/home/calder/repos/shopify-challenge/doge.jpg"
+								},
+								{
+									"key": "nyan_cat_gif",
+									"type": "file",
+									"src": "/home/calder/repos/shopify-challenge/nyan_cat.gif"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}/users/calder/images",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"users",
+								"calder",
+								"images"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE image (private)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var schema = {",
+									"  \"message\": {",
+									"    \"type\": \"string\"",
+									"  }",
+									"};",
+									"",
+									"pm.test(\"Body matches schema\", function () {",
+									"    pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"Body says \\\"images have been created\\\"\", function () {",
+									"    pm.expect(pm.response.json().message).to.include(\"Images have been created\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "private",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "super_secret_nyan",
+									"type": "file",
+									"src": "/home/calder/repos/shopify-challenge/inverted_nyan.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}/users/calder/images",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"users",
+								"calder",
+								"images"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET image (public)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Image hash matches correctly\", function () {",
+									"    let hash = CryptoJS.SHA1(pm.response.text()).toString();",
+									"    pm.expect(hash).to.eql(\"24e4b29b30b2db52f7e4df9b6e9ac42830f95a27\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/users/calder/images/nyan_cat",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"users",
+								"calder",
+								"images",
+								"nyan_cat"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET image (private)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Image hash matches correctly\", function () {",
+									"    let hash = CryptoJS.SHA1(pm.response.text()).toString();",
+									"    pm.expect(hash).to.eql(\"50f1b3990d699b3081f4049b83e6e64f44a48ec1\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/users/calder/images/super_secret_nyan",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"users",
+								"calder",
+								"images",
+								"super_secret_nyan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE image",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var schema = {",
+									"  \"message\": {",
+									"    \"type\": \"string\"",
+									"  }",
+									"};",
+									"",
+									"pm.test(\"Body matches schema\", function () {",
+									"    pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"Body says \\\"images have been deleted\\\"\", function () {",
+									"    pm.expect(pm.response.json().message).to.include(\"Images have been deleted\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/users/calder/images/nyan_cat",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"users",
+								"calder",
+								"images",
+								"nyan_cat"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE images (batch)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var schema = {",
+									"  \"message\": {",
+									"    \"type\": \"string\"",
+									"  }",
+									"};",
+									"",
+									"pm.test(\"Body matches schema\", function () {",
+									"    pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"Body says \\\"images have been deleted\\\"\", function () {",
+									"    pm.expect(pm.response.json().message).to.include(\"Images have been deleted\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"images\": [\n        \"doge\",\n        \"nyan_cat_gif\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/users/calder/images",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"users",
+								"calder",
+								"images"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Faulty Request Tests",
+			"item": [
+				{
+					"name": "No token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									"var schema = {",
+									"  \"message\": {",
+									"    \"type\": \"string\"",
+									"  }",
+									"};",
+									"",
+									"pm.test(\"Body matches schema\", function () {",
+									"    pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"Message error message is correct\", function() {",
+									"    pm.expect(pm.response.json().message).to.eql(\"No authentication token supplied!\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/users/calder/images/super_secret_nyan",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"users",
+								"calder",
+								"images",
+								"super_secret_nyan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET private image (Unauthorized)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									"var schema = {",
+									"  \"message\": {",
+									"    \"type\": \"string\"",
+									"  }",
+									"};",
+									"",
+									"pm.test(\"Body matches schema\", function () {",
+									"    pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"Message error message is correct\", function() {",
+									"    pm.expect(pm.response.json().message).to.eql(\"Incorrect token.\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "this is the wrong token",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/users/calder/images/super_secret_nyan",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"users",
+								"calder",
+								"images",
+								"super_secret_nyan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Image does not exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"",
+									"var schema = {",
+									"  \"message\": {",
+									"    \"type\": \"string\"",
+									"  }",
+									"};",
+									"",
+									"pm.test(\"Body matches schema\", function () {",
+									"    pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"Message error message is correct\", function() {",
+									"    pm.expect(pm.response.json().message).to.eql(\"Image not found.\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/users/joe/images/super_secret_nyan",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"users",
+								"joe",
+								"images",
+								"super_secret_nyan"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{USER_TOKEN}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "token",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"let API_URL = pm.variables.get(\"API_URL\");",
+					"",
+					"pm.sendRequest({",
+					"    url: API_URL + '/users/calder',",
+					"    method: 'DELETE',",
+					"    header: 'token: password',",
+					"}, function(err, res) {",
+					"    pm.sendRequest({",
+					"        url: API_URL + '/users/calder',",
+					"        method: 'POST',",
+					"        header: 'token: password',",
+					"    }, function(err, res) {",
+					"        let doc = res.json();",
+					"        pm.variables.set(\"USER_TOKEN\", doc.token);",
+					"    });",
+					"});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

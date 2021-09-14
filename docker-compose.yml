@@ -1,0 +1,22 @@
+version: '3.6'
+services:
+  web:
+    build: app
+    image: shopify_challenge
+    container_name: shopify_web
+    ports:
+     - "5000:5000"
+    environment:
+     - ADMIN_AUTH_HASH=5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8
+  db:
+    image: postgres:9.5
+    container_name: shopify_db
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+
+    # persist the data between runs on the local disk.
+    volumes:
+     - ./postgres-data:/var/lib/postgresql/data
+     - ./psql_schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
