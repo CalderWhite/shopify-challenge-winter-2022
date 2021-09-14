@@ -28,5 +28,5 @@ specific example parameters and tests with it!
 
 All tests are built into postman! Just click run on the "Admin Actions" and "Image Management" collections!
 
-[gif here]
+![Testing Demo](https://github.com/CalderWhite/shopify-challenge-winter-2022/raw/master/demo_videos/test_demo.gif)
 
